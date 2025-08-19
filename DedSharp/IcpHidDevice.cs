@@ -44,7 +44,6 @@ namespace DedSharp
 
             Device = hidDevice;
 
-            // var streamOpened = Device.TryOpen(out DeviceStream);
             var config = new OpenConfiguration();
             config.SetOption(OpenOption.Exclusive, true);
             config.SetOption(OpenOption.Interruptible, false);
@@ -121,6 +120,12 @@ namespace DedSharp
             var commandBytes = CommandListAsBytes(commands);
 
             WriteCommandBytes(commandBytes);
+        }
+
+        public async Task WriteDedCommandsAsync(List<DedCommand> commands)
+        {
+            var commandBytes = CommandListAsBytes(commands);
+            await WriteCommandBytesAsync(commandBytes);
         }
 
         public void Dispose() => DeviceStream.Dispose();

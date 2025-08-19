@@ -11,14 +11,6 @@ namespace DedTester
     {
         private static TimeSpan updatePeriod = TimeSpan.FromMilliseconds(100);
 
-        private static string[] blankDisplay = new string[5] {
-            "                        ",
-            "                        ",
-            "                        ",
-            "                        ",
-            "                        "
-        };
-
         private static string[] waitingDisplay = new string[5] {
             "                        ",
             "                        ",

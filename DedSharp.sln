@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DedSharp", "DedSharp\DedSharp.csproj", "{58420870-9CA9-4023-9F84-155F50DADB96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DedTester", "DedTester\DedTester.csproj", "{F0175038-5E82-4739-BA5C-C8D6F6F33D47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmsDedClientCli", "BmsDedClientCli\BmsDedClientCli.csproj", "{F0175038-5E82-4739-BA5C-C8D6F6F33D47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F4SharedMem", "lib\lightningstools\src\F4SharedMem\F4SharedMem.csproj", "{517D1B4D-E8C7-4331-BBE7-300FD6B78441}"
 EndProject

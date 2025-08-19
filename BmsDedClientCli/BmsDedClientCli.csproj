@@ -16,11 +16,4 @@
     <ProjectReference Include="..\DEDSharp\DEDSharp.csproj" />
     <ProjectReference Include="..\lib\lightningstools\src\F4SharedMem\F4SharedMem.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="smiley.bmp">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
