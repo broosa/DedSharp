@@ -87,7 +87,7 @@ namespace DedTester
             }
 
             Console.WriteLine("Creating BMS Display.");
-            BmsDedDisplay bmsDisplay = new BmsDedDisplay();
+            BmsDedDisplayProvider bmsDisplay = new BmsDedDisplayProvider();
 
             Console.WriteLine("Connecting to BMS Shared Memory.");
 

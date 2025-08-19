@@ -8,7 +8,7 @@ namespace DedSharp
 {
     public interface IDedDisplayProvider {
         public bool IsPixelOn(int row, int column);
-        public bool IsRowDirty(int row);
+        public bool RowNeedsUpdate(int row);
 
         public void MarkRowDirty(int row, bool dirty);
     }

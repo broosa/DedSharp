@@ -80,25 +80,40 @@ namespace DedSharp
             DeviceStream.Write(packet.GetBytes());
         }
 
-        private async Task WriteCommandBytes(byte[] commandBytes)
+        private async Task WriteIcpPacketAsync(IcpPacket packet)
         {
+            await DeviceStream.WriteAsync(packet.GetBytes());
+        }
 
-            var asyncTasks = new List<ValueTask>();
+        private void WriteCommandBytes(byte[] commandBytes)
+        {
             for (var packetStartIndex = 0; packetStartIndex < commandBytes.Length; packetStartIndex += 60)
             {
                 var packetStopIndex = commandBytes.Length - packetStartIndex >= 60 ? packetStartIndex + 60 : commandBytes.Length;
 
-                var Packet = new IcpPacket
+                var packet = new IcpPacket
                 {
                     SequenceNum = PacketSeqNumber++,
                     PacketBuffer = commandBytes[packetStartIndex..packetStopIndex]
                 };
 
-                DeviceStream.Write(Packet.GetBytes());
+                WriteIcpPacket(packet);
             }
+        }
 
-            //var taskArray = asyncTasks.Select<ValueTask, Task>((t) => t.AsTask()).ToArray();
-            //Task.WaitAll(taskArray);
+        private async Task WriteCommandBytesAsync(byte[] commandBytes)
+        {
+            for (var packetStartIndex = 0; packetStartIndex < commandBytes.Length; packetStartIndex += 60)
+            {
+                var packetStopIndex = commandBytes.Length - packetStartIndex >= 60 ? packetStartIndex + 60 : commandBytes.Length;
+                var packet = new IcpPacket
+                {
+                    SequenceNum = PacketSeqNumber++,
+                    PacketBuffer = commandBytes[packetStartIndex..packetStopIndex]
+                };
+
+                await WriteIcpPacketAsync(packet);
+            }
         }
 
         public void WriteDedCommands(List<DedCommand> commands)

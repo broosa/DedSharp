@@ -8,7 +8,7 @@ using System.Data;
 
 namespace DedSharp
 {
-    public class BmsDedDisplay : IDedDisplayProvider
+    public class BmsDedDisplayProvider : IDedDisplayProvider
     {
 
         private static readonly uint DISPLAY_WIDTH = 200;
@@ -23,14 +23,13 @@ namespace DedSharp
         private static readonly uint FONT_ROWS = 9;
         private static readonly uint FONT_COLS = 8;
 
-
         //This array contains the ascii representation of each character that the font could render.
         //0x00 indicates that the corresponding position in the font doesn't correspond with anything
         //(excepting the last index, which we use to represent characters which we can't render)
         private static readonly byte[] _fontBytes = Encoding.ASCII.GetBytes("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\x01()<>[]+-\x02/=^|~\x7f.,!?:;&_'\"%#@{} \x7f\x7f\x7f\x7f");
 
-        private Dictionary<byte, bool[]> _glyphMap;
-        private Dictionary<byte, bool[]> _glyphMapInverted;
+        private Dictionary<byte, bool[]?> _glyphMap;
+        private Dictionary<byte, bool[]?> _glyphMapInverted;
         
         private Bitmap _dedFont;
         private Bitmap _dedFontInverted;
@@ -60,7 +59,7 @@ namespace DedSharp
             return pixelStates;
         }
 
-        public BmsDedDisplay()
+        public BmsDedDisplayProvider()
         {
             for (int i = 0; i < 5; i++)
             {
@@ -74,8 +73,8 @@ namespace DedSharp
             using MemoryStream dedInvertedFontStream = new MemoryStream(DedSharp.Properties.Resources.DedFontInverted);
             _dedFontInverted = (Bitmap)Bitmap.FromStream(dedInvertedFontStream);
 
-            _glyphMap = new Dictionary<byte, bool[]>();
-            _glyphMapInverted = new Dictionary<byte, bool[]>();
+            _glyphMap = new Dictionary<byte, bool[]?>();
+            _glyphMapInverted = new Dictionary<byte, bool[]?>();
 
 
             //Map each ascii byte in the font to a set of boolean values representing the state of the pixels
@@ -178,7 +177,7 @@ namespace DedSharp
             return _pixelStates[200 * row + col];
         }
 
-        public bool IsRowDirty(int row)
+        public bool RowNeedsUpdate(int row)
         {
             if (row >= 5 || row < 0)
             {
