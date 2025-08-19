@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-binaries:
     runs-on: windows-latest
+    steps:
       - uses: actions/checkout@v2
         with:
             submodules: 'true'
       - uses: actions/setup-dotnet@v1
-      - name: Build Project
-        run: dotnet build
+      - run: dotnet build
