@@ -18,6 +18,7 @@ jobs:
       - name: Build and publish binaries
         run: dotnet publish -o dist
       - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
             name: app-binaries
             path: dist
