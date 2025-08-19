@@ -1,0 +1,17 @@
+---
+name: Build Application Binaries
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+      - uses: actions/checkout@v2
+        with:
+        submodules: 'true'
+      - uses: actions/setup-dotnet@v1
+      - name: Build Project
+        run: dotnet build
