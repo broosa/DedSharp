@@ -4,13 +4,21 @@ name: Build Application Binaries
 on: [workflow_dispatch, push]
 
 jobs:
-  build-binaries:
+  publish_binaries:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
         with:
             submodules: 'true'
-      - uses: actions/setup-dotnet@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
             dotnet-version: 8.x
-      - run: dotnet publish -o dist
+      - name: Build and publish binaries
+        run: dotnet publish -o dist
+      - name: Upload artifacts
+        with:
+            name: app-binaries
+            path: dist
+        
