@@ -1,0 +1,3 @@
+[submodule "lib/lightningstools"]
+	path = lib/lightningstools
+	url = https://github.com/lightningviper/lightningstools
