@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,8 +35,6 @@ namespace DedSharp
         private static readonly uint DISPLAY_HEIGHT = 65;
 
         private IcpHidDevice _hidDevice;
-
-        private DedDevice _dedDevice;
 
         public DedDevice()
         {
@@ -78,7 +77,6 @@ namespace DedSharp
         {
             var dedCommands = _generateDrawCommands(displayProvider);
             _hidDevice.WriteDedCommands(dedCommands);
-            
         }
 
         public async Task UpdateDisplayAsync(IDedDisplayProvider displayProvider)

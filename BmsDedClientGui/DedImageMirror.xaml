@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="DedSharp.BmsDedClientGui.DedImageMirror"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DedSharp.BmsDedClientGui"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Background="Black" Margin="5px">
+        <Image Source="{Binding DedBitmap}" Margin="5px" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderOptions.EdgeMode="Aliased" Height="138" Width="408"/>
+    </Grid>
+</UserControl>

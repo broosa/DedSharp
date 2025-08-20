@@ -5,11 +5,19 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
 
-namespace DedTester
+namespace DedSharp.BmsDedClientCli
 { 
     internal class Program
     {
         private static TimeSpan updatePeriod = TimeSpan.FromMilliseconds(100);
+
+        private static string[] blankDisplay = new string[5] {
+            "                        ",
+            "                        ",
+            "                        ",
+            "                        ",
+            "                        "
+        };
 
         private static string[] waitingDisplay = new string[5] {
             "                        ",
@@ -58,17 +66,10 @@ namespace DedTester
         {
             Console.WriteLine("Starting HID Device.");
 
-            IcpHidDevice icpDevice = null;
+            DedDevice dedDevice = null;
             try
             {
-                icpDevice = new IcpHidDevice();
-            }
-            catch (IcpDeviceException ex)
-            {
-                Console.WriteLine($"Error: ICP device not found.");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
-                return;
+                dedDevice = new DedDevice();
             }
             catch (Exception e)
             {
@@ -79,7 +80,7 @@ namespace DedTester
             }
 
             Console.WriteLine("Creating BMS Display.");
-            BmsDedDisplayProvider bmsDisplay = new BmsDedDisplayProvider();
+            BmsDedDisplayProvider bmsDisplayProvider = new BmsDedDisplayProvider();
 
             Console.WriteLine("Connecting to BMS Shared Memory.");
 
@@ -88,8 +89,7 @@ namespace DedTester
             while (true)
             {
                 //Clear the display
-                bmsDisplay.UpdateDedLines(blankDisplay, blankDisplay);
-                RefreshDisplay(bmsDisplay, icpDevice);
+                dedDevice.ClearDisplay();
 
                 var invertMessage = false;
 
@@ -98,8 +98,8 @@ namespace DedTester
                 {
                     var invertedLines = invertMessage ? waitingDisplayInvert : blankDisplay;
 
-                    bmsDisplay.UpdateDedLines(waitingDisplay, invertedLines);
-                    RefreshDisplay(bmsDisplay, icpDevice);
+                    bmsDisplayProvider.UpdateDedLines(waitingDisplay, invertedLines);
+                    dedDevice.UpdateDisplay(bmsDisplayProvider);
 
                     invertMessage = !invertMessage;
                     Thread.Sleep(TimeSpan.FromSeconds(1));
@@ -111,13 +111,13 @@ namespace DedTester
                 {
                     var updateStartTime = DateTime.Now;
                     var bmsData = sharedMemReader.GetCurrentData();
-                    bmsDisplay.UpdateDedLines(bmsData.DEDLines, bmsData.Invert);
+                    bmsDisplayProvider.UpdateDedLines(bmsData.DEDLines, bmsData.Invert);
 
-                    RefreshDisplay(bmsDisplay, icpDevice);
+                    dedDevice.UpdateDisplay(bmsDisplayProvider);
 
                     var updateDuration = DateTime.Now - updateStartTime;
 
-                    if (!sharedMemReader.IsFalconRunning)
+                    if (!sharedMemReader.IsConnected)
                     {
                         break;
                     }

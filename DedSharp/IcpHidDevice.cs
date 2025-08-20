@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,6 @@ namespace DedSharp
                 throw new IcpDeviceException("ICP USB HID Device not found.");
             }
 
-
             Device = hidDevice;
 
             var config = new OpenConfiguration();
@@ -81,7 +81,7 @@ namespace DedSharp
 
         private async Task WriteIcpPacketAsync(IcpPacket packet)
         {
-            await DeviceStream.WriteAsync(packet.GetBytes());
+            await DeviceStream.WriteAsync(packet.GetBytes()).AsTask();
         }
 
         private void WriteCommandBytes(byte[] commandBytes)
@@ -110,7 +110,6 @@ namespace DedSharp
                     SequenceNum = PacketSeqNumber++,
                     PacketBuffer = commandBytes[packetStartIndex..packetStopIndex]
                 };
-
                 await WriteIcpPacketAsync(packet);
             }
         }

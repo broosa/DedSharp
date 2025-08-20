@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Data;
+using System.Diagnostics;
 
 namespace DedSharp
 {
@@ -20,8 +21,7 @@ namespace DedSharp
         private static readonly uint DED_ROWS = 5;
         private static readonly uint DED_COLUMNS = 24;
 
-        private static readonly uint FONT_ROWS = 9;
-        private static readonly uint FONT_COLS = 8;
+        private static readonly ReaderWriterLock _pixelDataLock = new ReaderWriterLock();
 
         //This array contains the ascii representation of each character that the font could render.
         //0x00 indicates that the corresponding position in the font doesn't correspond with anything
@@ -134,6 +134,12 @@ namespace DedSharp
                     glyphPixelStates = invertedBytes[i] != 0x20 ? _glyphMapInverted.GetValueOrDefault((byte) 0x7f, null) : _glyphMap.GetValueOrDefault((byte)0x7f, null);
                 }
 
+                if (glyphPixelStates == null)
+                {
+                    //Something weird is going on.
+                    return;
+                }
+
                 for (int glyphRow = 0; glyphRow < FONT_CHAR_HEIGHT; glyphRow++)
                 {
                     for (int glyphCol = 0; glyphCol < FONT_CHAR_WIDTH; glyphCol++)
@@ -146,6 +152,7 @@ namespace DedSharp
 
         public void UpdateDedLines(string[] newDedLines, string[] invertedDedLines)
         {
+            _pixelDataLock.AcquireWriterLock(TimeSpan.FromSeconds(5));
             for (int i = 0; i < newDedLines.Length; i++)
             {
                 //If either the current line on the DED or its inversion states have changed,
@@ -166,23 +173,29 @@ namespace DedSharp
                     UpdateLinePixelStates((uint) i);
                 }
             }
+            _pixelDataLock.ReleaseWriterLock();
         }
 
         public bool IsPixelOn(int row, int col)
         {
+            _pixelDataLock.AcquireReaderLock(TimeSpan.FromSeconds(5));
             if (row >= 65 || row < 0 || col >= 200 || col < 0)
             {
                 return false;
             }
+            _pixelDataLock.ReleaseReaderLock();
             return _pixelStates[200 * row + col];
+
         }
 
         public bool RowNeedsUpdate(int row)
         {
+            _pixelDataLock.AcquireReaderLock(TimeSpan.FromSeconds(5));
             if (row >= 5 || row < 0)
             {
                 return false;
             }
+            _pixelDataLock.ReleaseReaderLock();
             return _linesToUpdate[row];
         }
 

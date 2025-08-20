@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\dotnet-build.yml = .github\workflows\dotnet-build.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BmsDedClientGui", "BmsDedClientGui\BmsDedClientGui.csproj", "{61FA8DF5-4542-459F-91E0-949ADBEB7B50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -46,6 +48,14 @@ Global
 		{517D1B4D-E8C7-4331-BBE7-300FD6B78441}.Release|x64.Build.0 = Release|x64
 		{517D1B4D-E8C7-4331-BBE7-300FD6B78441}.Release|x86.ActiveCfg = Release|x86
 		{517D1B4D-E8C7-4331-BBE7-300FD6B78441}.Release|x86.Build.0 = Release|x86
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Debug|x64.Build.0 = Debug|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Debug|x86.Build.0 = Debug|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Release|x64.ActiveCfg = Release|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Release|x64.Build.0 = Release|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Release|x86.ActiveCfg = Release|Any CPU
+		{61FA8DF5-4542-459F-91E0-949ADBEB7B50}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
