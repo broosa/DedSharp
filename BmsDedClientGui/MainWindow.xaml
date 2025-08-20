@@ -37,6 +37,9 @@
         <Label Grid.Row="0" Grid.Column="1" Name="BmsConnectionStatusLabel" HorizontalAlignment="Right" Content="{Binding Path=IsBmsConnected, Converter={StaticResource ConnectionBooleanLabelConverter}}" Style="{StaticResource ConnectionLabelStyle}"/>
         <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="DED Device Status:"/>
         <Label Grid.Row="1" Grid.Column="1" Name="DedConnectionStatusLabel" HorizontalAlignment="Right" Content="{Binding Path=IsDedConnected, Converter={StaticResource ConnectionBooleanLabelConverter}}" Style="{StaticResource ConnectionLabelStyle}"/>
-        <local:DedImageMirror x:Name="DedMirror" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DedDisplayProvider="{Binding Path=DedDisplayProvider, ElementName=DedMainWindow}"/>
+        <GroupBox Margin="5px" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <GroupBox.Header>DED Preview</GroupBox.Header>
+            <local:DedImageMirror x:Name="DedMirror" DedDisplayProvider="{Binding Path=DedDisplayProvider, ElementName=DedMainWindow}"/>
+        </GroupBox>
     </Grid>
 </Window>
