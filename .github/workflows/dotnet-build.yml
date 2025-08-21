@@ -15,8 +15,12 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
             dotnet-version: 8.x
-      - name: Build and publish binaries
-        run: dotnet publish -o dist
+      - name: Build and publish DedSharp
+        run: dotnet publish DedSharp -o dist/DedSharp
+      - name: Build and publish BmsDedClientCli
+        run: dotnet publish BmsDedClientCli -o dist/BmsDedClientCli
+      - name: Build and publish BmsDedClientGui
+        run: dotnet publish BmsDedClientGui -o dist/BmsDedClientGui
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
