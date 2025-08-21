@@ -118,7 +118,8 @@ namespace DedSharp.BmsDedClientGui
             } 
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show($"Could not connect to DED device. Ensure your device is connected and try running the application again.", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
             }
 
             InitializeComponent();
