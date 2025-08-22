@@ -15,8 +15,11 @@ namespace DedSharp
     public class IcpHidDevice
     {
 
-        private static readonly ushort ICP_VID = 0x4098;
-        private static readonly ushort ICP_PID = 0xbf06;
+        private static readonly ushort ICP_USB_VENDOR_ID = 0x4098;
+        private static readonly ushort ICP_USB_PRODUCT_ID = 0xbf06;
+
+        private static readonly int ICP_HID_PAYLOAD_LENGTH = 60;
+
         private readonly HidDevice Device;
         private readonly HidStream DeviceStream;
 
@@ -30,7 +33,7 @@ namespace DedSharp
             HidDevice hidDevice = null;
             try
             {
-                hidDevice = devList.GetHidDevices(ICP_VID, ICP_PID).First();
+                hidDevice = devList.GetHidDevices(ICP_USB_VENDOR_ID, ICP_USB_PRODUCT_ID).First();
 
                 if (hidDevice == null)
                 {
@@ -65,10 +68,7 @@ namespace DedSharp
 
             foreach (var command in commands)
             {
-                foreach (var b in command.GetBytes())
-                {
-                    commandBytes.Add(b);
-                }
+                commandBytes.AddRange(command.GetBytes());
             }
 
             return commandBytes.ToArray();
@@ -86,9 +86,9 @@ namespace DedSharp
 
         private void WriteCommandBytes(byte[] commandBytes)
         {
-            for (var packetStartIndex = 0; packetStartIndex < commandBytes.Length; packetStartIndex += 60)
+            for (var packetStartIndex = 0; packetStartIndex < commandBytes.Length; packetStartIndex += ICP_HID_PAYLOAD_LENGTH)
             {
-                var packetStopIndex = commandBytes.Length - packetStartIndex >= 60 ? packetStartIndex + 60 : commandBytes.Length;
+                var packetStopIndex = commandBytes.Length - packetStartIndex >= ICP_HID_PAYLOAD_LENGTH ? packetStartIndex + ICP_HID_PAYLOAD_LENGTH : commandBytes.Length;
 
                 var packet = new IcpPacket
                 {
@@ -102,9 +102,9 @@ namespace DedSharp
 
         private async Task WriteCommandBytesAsync(byte[] commandBytes)
         {
-            for (var packetStartIndex = 0; packetStartIndex < commandBytes.Length; packetStartIndex += 60)
+            for (var packetStartIndex = 0; packetStartIndex < commandBytes.Length; packetStartIndex += ICP_HID_PAYLOAD_LENGTH)
             {
-                var packetStopIndex = commandBytes.Length - packetStartIndex >= 60 ? packetStartIndex + 60 : commandBytes.Length;
+                var packetStopIndex = commandBytes.Length - packetStartIndex >= ICP_HID_PAYLOAD_LENGTH ? packetStartIndex + ICP_HID_PAYLOAD_LENGTH : commandBytes.Length;
                 var packet = new IcpPacket
                 {
                     SequenceNum = PacketSeqNumber++,
