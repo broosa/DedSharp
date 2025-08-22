@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Drawing;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Data;
-using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DedSharp
 {
@@ -20,7 +13,7 @@ namespace DedSharp
         private static readonly byte[] _fontBytes = Encoding.ASCII.GetBytes("ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\x01()<>[]+-\x02/=^|~\x7f.,!?:;&_'\"%#@{} \x7f\x7f\x7f\x7f");
 
         private static readonly byte FONT_BYTE_GLYPH_NOT_FOUND = 0x7f;
-        
+
         private static readonly int FONT_CHAR_WIDTH = 8;
         private static readonly int FONT_CHAR_HEIGHT = 13;
 
@@ -47,7 +40,7 @@ namespace DedSharp
                 for (int col = 0; col < FONT_CHAR_WIDTH; col++)
                 {
                     var pixelX = (int)(index * FONT_CHAR_WIDTH + col);
-                    var pixelY = (int) row;
+                    var pixelY = (int)row;
 
                     pixelStates[GetPixelIndex(row, col)] = fontData.GetPixel(pixelX, pixelY).GetBrightness() > 0;
                 }
@@ -111,7 +104,7 @@ namespace DedSharp
             if (glyphMap.ContainsKey(DedByte))
             {
                 PixelStates = glyphMap[DedByte];
-            } 
+            }
             else
             {
                 PixelStates = glyphMap[FONT_BYTE_GLYPH_NOT_FOUND];
@@ -164,7 +157,7 @@ namespace DedSharp
         }
         private int GetGlyphIndex(int row, int col)
         {
-            return (int) (row * ColumnCount + col);
+            return (int)(row * ColumnCount + col);
         }
 
 
@@ -191,7 +184,7 @@ namespace DedSharp
         public BmsDedGlyph GetGlyphAtPosition(int row, int column)
         {
             var glyphIndex = GetGlyphIndex(row, column);
-            return _glyphs[(int) glyphIndex];
+            return _glyphs[(int)glyphIndex];
         }
 
         public BmsDedGlyph GetGlyphAtPixelPosition(int pixelRow, int pixelColumn)
@@ -199,7 +192,7 @@ namespace DedSharp
             var glyphRow = pixelRow / RowCount;
             var glyphColumn = pixelColumn / RowCount;
 
-            return GetGlyphAtPosition((int) glyphRow, (int) glyphColumn);
+            return GetGlyphAtPosition((int)glyphRow, (int)glyphColumn);
         }
 
         public bool IsPixelOn(int pixelRow, int pixelColumn)
@@ -209,7 +202,7 @@ namespace DedSharp
             var pixelRowOffset = pixelRow % RowCount;
             var pixelColumnOffset = pixelColumn % ColumnCount;
 
-            return glyph.IsPixelOn((int) pixelRowOffset, (int) pixelColumnOffset);
+            return glyph.IsPixelOn((int)pixelRowOffset, (int)pixelColumnOffset);
         }
     }
 

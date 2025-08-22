@@ -1,19 +1,9 @@
 ﻿using F4SharedMem;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Timers;
 using System.Windows.Threading;
 
 namespace DedSharp.BmsDedClientGui
@@ -92,15 +82,16 @@ namespace DedSharp.BmsDedClientGui
             get { return _dedDevice; }
             set
             {
-                _dedDevice = value; 
-                OnPropertyChanged();    
+                _dedDevice = value;
+                OnPropertyChanged();
             }
         }
 
         public BmsDedDisplayProvider DedDisplayProvider
         {
             get { return _dedDisplayProvider; }
-            set { 
+            set
+            {
                 _dedDisplayProvider = value;
                 OnPropertyChanged();
             }
@@ -115,7 +106,7 @@ namespace DedSharp.BmsDedClientGui
             {
                 DedDevice = new DedDevice();
                 IsDedConnected = true;
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Could not connect to DED device. Ensure your device is connected and try running the application again.", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -152,7 +143,7 @@ namespace DedSharp.BmsDedClientGui
                     IsBmsConnected = true;
                 }
                 DedMirror.UpdateDisplay();
-            } 
+            }
             else
             {
                 if (IsBmsConnected)
@@ -161,7 +152,7 @@ namespace DedSharp.BmsDedClientGui
                 }
             }
         }
-        
+
         //TODO: Better handle changes in DED/BMS connection states.
         private void _deviceUpdateTimer_Elapsed(object? sender, EventArgs e)
         {

@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Printing.IndexedProperties;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DedSharp.BmsDedClientGui
 {
@@ -23,7 +12,7 @@ namespace DedSharp.BmsDedClientGui
     /// Interaction logic for DedImageMirror.xaml
     /// </summary>
     public partial class DedImageMirror : UserControl, INotifyPropertyChanged
-    { 
+    {
         public class TestDedDisplayProvider : IDedDisplayProvider
         {
             public bool IsPixelOn(int row, int column)
@@ -53,7 +42,8 @@ namespace DedSharp.BmsDedClientGui
             {
                 return (IDedDisplayProvider)GetValue(DedDisplayProviderProperty);
             }
-            set {
+            set
+            {
                 SetValue(DedDisplayProviderProperty, value);
                 OnPropertyChanged();
                 UpdateDisplay();
@@ -99,7 +89,7 @@ namespace DedSharp.BmsDedClientGui
 
             DedBitmap.WritePixels(new Int32Rect(2, 2, 200, 65), pixels, 800, 0);
         }
-         
+
         public DedImageMirror()
         {
             DedBitmap = new WriteableBitmap(204, 69, 300, 300, PixelFormats.Bgra32, null);
@@ -109,7 +99,7 @@ namespace DedSharp.BmsDedClientGui
 
         private static void OnDedDisplayProviderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine("Dependency object changed");   
+            Debug.WriteLine("Dependency object changed");
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")

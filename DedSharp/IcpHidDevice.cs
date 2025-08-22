@@ -1,10 +1,4 @@
 ﻿using HidSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DedSharp
 {
@@ -39,7 +33,7 @@ namespace DedSharp
                 {
                     throw new IcpDeviceException("ICP USB HID Device not found.");
                 }
-            } 
+            }
             catch (InvalidOperationException ex)
             {
                 throw new IcpDeviceException("ICP USB HID Device not found.");
@@ -53,7 +47,8 @@ namespace DedSharp
             DeviceStream = Device.Open(config);
 
             var streamOpened = true;
-            if (!streamOpened) {
+            if (!streamOpened)
+            {
                 throw new IcpDeviceException("Could not open HID device stream.");
             }
 

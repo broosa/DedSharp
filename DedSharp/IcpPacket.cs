@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DedSharp
+﻿namespace DedSharp
 {
     internal class IcpPacket
     {
@@ -15,7 +9,7 @@ namespace DedSharp
         {
             get
             {
-                return (byte) PacketBuffer.Length;
+                return (byte)PacketBuffer.Length;
             }
         }
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DedSharp
+﻿namespace DedSharp
 {
     public class DedDevice : IDisposable
     {
@@ -41,7 +34,7 @@ namespace DedSharp
             try
             {
                 _hidDevice = new IcpHidDevice();
-            } 
+            }
             catch (IcpDeviceException ex)
             {
                 throw new DeviceException($"HID device initialization exception: {ex}");

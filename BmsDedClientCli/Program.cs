@@ -1,12 +1,5 @@
-﻿using DedSharp;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Printing;
-
-namespace DedSharp.BmsDedClientCli
-{ 
+﻿namespace DedSharp.BmsDedClientCli
+{
     internal class Program
     {
         private static TimeSpan updatePeriod = TimeSpan.FromMilliseconds(100);
